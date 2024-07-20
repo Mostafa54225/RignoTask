@@ -1,0 +1,51 @@
+﻿@model RingoTask.ViewModels.DepartmentDetailsViewModel
+
+<h2>@Model.Department.Name</h2>
+
+<img src="@Url.Content("~/images/logo/" + @Model.Department.Logo)" width="100" height="100" alt="@Model.Department.Name" />
+<h3>Parent Departments</h3>
+
+@if (Model.ParentHierarchy != null && Model.ParentHierarchy.Any())
+{
+    <ul>
+        @foreach (var parent in Model.ParentHierarchy)
+        {
+            <li>@parent.Name</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No parent departments found.</p>
+}
+
+<h3>Sub-Departments</h3>
+
+@if (Model.Department.InverseParentDepartment != null && Model.Department.InverseParentDepartment.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var subDepartment in Model.Department.InverseParentDepartment)
+            {
+                <tr>
+                    <td><img src="@Url.Content("~/images/logo/" + subDepartment.Logo)" width="100" height="100" alt="@subDepartment.Name" /></td>
+                    <td>@subDepartment.Name</td>
+                    <td>
+                        <a asp-action="SubDepartments" asp-route-id="@subDepartment.DepartmentId">View Sub-Departments</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No sub-departments found.</p>
+}

@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Department>
+
+<h2>Parent Departments</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Logo</th>
+    </tr>
+    @foreach (var department in Model)
+    {
+        <tr>
+            <td>@department.Name</td>
+            <td><img src="@Url.Content("~/images/logo/" + department.Logo)" width="100" height="100" alt="@department.Name" /></td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<RingoTask.Models.Department>
+
+<!-- Create Reminder Button -->
+<div class="mb-3">
+    <a asp-controller="Reminders" asp-action="Create" class="btn btn-primary">Create Reminder</a>
+</div>
+
+<h2>Parent Departments</h2>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Logo</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var department in Model)
+        {
+            <tr>
+                <td><img src="@Url.Content("~/images/logo/" + department.Logo)" width="100" height="100" alt="@department.Name" /></td>
+                <td>@department.Name</td>
+                <td>
+                    <a asp-action="SubDepartments" asp-route-id="@department.DepartmentId">View Sub-Departments</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
